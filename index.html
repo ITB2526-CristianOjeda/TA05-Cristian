@@ -14,12 +14,13 @@
     <!-- Add fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
-
+    <!-- Font Awesome for the jedi-order icon (no integrity to avoid blocking) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   </head>
 
   <body>
-  <!-- Top navigation -->
-  <nav class="topnav" role="navigation" aria-label="Main navigation">
+  <!-- Top navigation: changed nav -> header for semantic header -->
+  <header class="topnav" role="banner" aria-label="Main header">
     <div class="nav-inner">
       <div class="logo" aria-hidden="true">
         <!-- circular Jedi-like emblem -->
@@ -33,15 +34,42 @@
         <li><a href="#">Formulario</a></li>
       </ul>
     </div>
-  </nav>
+  </header>
 
   <!-- Page layout: single content area filling the dark space -->
   <div class="page-layout" role="main">
     <main class="content" id="content">
-      <!-- expanded starfield box fills the black area between header and footer -->
-      <div class="starbox">
-        <div id="starfield" class="starfield" aria-hidden="true"></div>
+      <!-- Left project nav -->
+      <nav class="side-nav" aria-label="Project navigation">
+        <div class="side-content">
+          <div class="project-title">Proyecto 1</div>
+          <p class="project-desc">A practical project demonstrating real-world cybersecurity: network security, physical protection, password management, RAID configuration, and automated backup strategies.</p>
+        </div>
+      </nav>
+
+      <!-- Center area with loader -->
+      <div class="center-area">
+        <!-- expanded starfield box fills the black area between header and footer -->
+        <div class="starbox">
+          <!-- loader replaced the starfield -->
+          <div class="wrapper" aria-hidden="true">
+            <div class="loading-wrapper">
+              <div class="circle"></div>
+              <div class="dot"></div>
+              <div class="dot-two"></div>
+            </div>
+            <i class="fab fa-jedi-order icon"></i>
+          </div>
+        </div>
       </div>
+
+      <!-- Right aside for second project -->
+      <aside class="side-aside" aria-label="Project details">
+        <div class="side-content">
+          <div class="project-title">Proyecto 2</div>
+          <p class="project-desc">A practical project demonstrating real-world cybersecurity: network security, physical protection, password management, RAID configuration, and automated backup strategies.</p>
+        </div>
+      </aside>
     </main>
   </div>
 

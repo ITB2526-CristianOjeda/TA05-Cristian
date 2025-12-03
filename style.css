@@ -37,11 +37,13 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
 
-/* center content inside topnav and arrange logo + menu horizontally */
+/* center the header content visually and keep logo on the left */
 .topnav .nav-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* center the menu visually */
+  justify-content: center;
+  position: relative; /* allow absolute logo */
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 16px;
@@ -49,11 +51,13 @@ body {
   box-sizing: border-box;
 }
 
-/* left circular logo */
+/* keep logo visually pinned to the left while header menu is centered */
 .topnav .logo {
   display: flex;
   align-items: center;
   gap: 12px;
+  position: absolute;
+  left: 16px;
 }
 .topnav .logo-mark {
   width: 40px;
@@ -88,14 +92,14 @@ body {
   transform: translateY(-2px);
 }
 
-/* Page layout changed: single content that fills the dark area */
+/* Page layout: account for header (64px) and footer (64px) */
 .page-layout {
-  /* replaced grid with a single full-width container */
   display: block;
   width: 100%;
   max-width: none;
   margin: 0;
-  height: calc(100vh - 64px - 48px); /* viewport minus header (64px) and footer approximate (48px) */
+  /* viewport minus header (64px) and footer (64px) */
+  height: calc(100vh - 64px - 64px);
   box-sizing: border-box;
   padding: 0;
   z-index: 10;
@@ -108,64 +112,136 @@ body {
   justify-content: center;
   height: 100%;
   width: 100%;
-}
-.starbox {
-  width: 100%;
-  height: 100%;
-  background: #000; /* full black so starfield covers the entire dark area */
-  border-radius: 0; /* squared to fill edges */
-  border: none;
-  box-shadow: none;
-  overflow: hidden;
-  position: relative; /* reference for absolutely positioned stars */
-  z-index: 1;
+  gap: 12px;
 }
 
-/* The starfield is positioned relative inside the starbox so JS can place absolute stars */
-.starfield {
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: 1;
+/* side panels: fixed width, centered content */
+.side-nav,
+.side-aside {
+  width: 220px;
+  min-width: 160px;
+  background: rgba(11,77,160,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+  box-sizing: border-box;
+  z-index: 2;
 }
 
-/* Footer: fixed and centered at bottom */
-.site-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #0b4da0;
-  color: #fff;
-  z-index: 60;
-  padding: 12px 0;
-  box-shadow: 0 -2px 8px rgba(0,0,0,0.4);
-}
-.footer-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 16px;
+/* side-content: stack title + description vertically and center */
+.side-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
   text-align: center;
+  gap: 8px;
+  box-sizing: border-box;
+  color: #ffffff;
 }
 
-/* Stars: no changes to base animation, but ensure they render inside the starbox container */
-.star {
-  border: 1px solid transparent;
-  border-radius: 50%;
-  border-top-color: #fff;
+/* title inside side-content */
+.side-content .project-title {
+  font-size: 1.25rem; /* mantener tamaño grande */
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* description below the title */
+.side-content .project-desc {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: rgba(255,255,255,0.92);
   margin: 0;
+  max-width: 180px; /* evita que el texto se desborde y causa solape */
+  word-wrap: break-word;
+  line-height: 1.25;
+}
+
+/* responsive: permitir un poco más de ancho para la descripción en pantallas grandes */
+@media (min-width: 1200px) {
+  .side-content .project-desc { max-width: 220px; }
+}
+
+/* Increase project text size and ensure centered text */
+.side-content {
+  font-size: 1.25rem; /* larger text */
+  text-align: center; /* horizontally centered */
+  line-height: 1.1;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* ensure the center area grows and clips overflowing children */
+.center-area {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden; /* keeps loader inside container */
+}
+
+/* keep starbox full height within the center area */
+.starbox {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Larger loader: keep size but allow rotation (was disabled) */
+.starbox .wrapper .loading-wrapper {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  border: 2px solid #ADD8E6;
+  border-radius: 50%;
+  box-shadow: 0 0 18px .2px #ADD8E6;
+  /* ring rotates again */
+  -webkit-animation: loader 1.5s linear infinite;
+          animation: loader 1.5s linear infinite;
+  transform-origin: center center;
+}
+
+/* dots positioned relative to the larger wrapper */
+.starbox .dot,
+.starbox .dot-two {
   position: absolute;
-  transform-origin: left;
-  width: 1px;
-  height: 2px;
-  opacity: 0.92;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ADD8E6;
+  box-shadow: 0 0 14px .2px #ADD8E6;
+  transform: translateX(-50%);
+}
+
+.starbox .dot { top: -6px; } /* slightly above */
+.starbox .dot-two { top: calc(100% - 6px); } /* bottom edge */
+
+/* Bigger icon centered inside the ring */
+.starbox .icon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #ADD8E6;
+  font-size: 110px;  /* increased from 55px */
+  animation-name: icon;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  border-radius: 50%;
+  height: 110px;
+  width: 110px;
+  text-align: center;
+  line-height: 1;
+  pointer-events: none;
 }
 
 /* animation keyframes unchanged */
@@ -187,3 +263,95 @@ body {
 
 /* Ensure topnav and footer remain fixed visually */
 .topnav, .site-footer { position: fixed; }
+
+/* Loader styles scoped to the starbox so they don't affect the rest of the site */
+.starbox .wrapper {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  position: relative;
+}
+
+/* Keyframes for the rotating ring and icon opacity */
+@-webkit-keyframes loader {
+  0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@keyframes loader {
+  0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@keyframes icon {
+  0%, 5%, 95%, 100% { opacity: 0; }
+  45%, 55% { opacity: 1; }
+}
+
+/* ensure duplicate loader definition also has animation enabled */
+.starbox .wrapper .loading-wrapper {
+  /* ...existing loader style... */
+  position: relative;
+  width: 160px;
+  height: 160px;
+  border: 2px solid #ADD8E6;
+  border-radius: 50%;
+  box-shadow: 0 0 18px .2px #ADD8E6;
+  -webkit-animation: loader 1.5s linear infinite;
+          animation: loader 1.5s linear infinite;
+  transform-origin: center center;
+}
+
+/* Footer: fixed, full width bar matching header color */
+.site-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 64px;
+  background: #0b4da0; /* same as header */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 55;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.35);
+}
+
+/* footer content: ensure readable contrast */
+.site-footer .footer-inner {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 16px;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+/* Responsive: stack on narrow viewports so side panels don't collide */
+@media (max-width: 900px) {
+  .content {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .side-nav,
+  .side-aside {
+    width: 100%;
+    min-width: 0;
+    height: 56px;
+  }
+  .center-area {
+    height: calc(100vh - 64px - 56px * 2 - 24px);
+  }
+  .starbox .wrapper .loading-wrapper {
+    width: 120px;
+    height: 120px;
+  }
+  .starbox .icon {
+    font-size: 80px;
+    height: 80px;
+    width: 80px;
+  }
+}
