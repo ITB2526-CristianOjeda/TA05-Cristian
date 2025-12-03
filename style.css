@@ -1,0 +1,189 @@
+@-webkit-keyframes lightspeed {
+  100% {
+    width: 100vh;
+  }
+}
+@keyframes lightspeed {
+  100% {
+    width: 100vh;
+  }
+}
+.center {
+  display: none; /* center helper hidden */
+}
+
+body {
+  background-color: #000; /* deeper black for space */
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Roboto', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #fff;
+  padding-top: 64px; /* leave space for fixed topnav */
+  padding-bottom: 64px; /* leave space for fixed footerr */
+}
+
+/* Top navigation layout: keep header horizontal and prettyy */
+.topnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #0b4da0;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  z-index: 60;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+/* center content inside topnav and arrange logo + menu horizontally */
+.topnav .nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* left circular logo */
+.topnav .logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.topnav .logo-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #eaf6ff 0%, #b3dbff 30%, #0b4da0 100%);
+  box-shadow: 0 4px 18px rgba(11,77,160,0.6), 0 0 10px rgba(179,219,255,0.12);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* horizontal menu */
+.topnav .menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 26px;
+  align-items: center;
+}
+.topnav .menu li { margin: 0; }
+.topnav .menu a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 6px 0;
+  display: inline-block;
+  transition: opacity .18s ease, transform .18s ease;
+}
+.topnav .menu a:hover {
+  opacity: 0.95;
+  transform: translateY(-2px);
+}
+
+/* Page layout changed: single content that fills the dark area */
+.page-layout {
+  /* replaced grid with a single full-width container */
+  display: block;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  height: calc(100vh - 64px - 48px); /* viewport minus header (64px) and footer approximate (48px) */
+  box-sizing: border-box;
+  padding: 0;
+  z-index: 10;
+}
+
+/* Center content box that now fills the available dark area */
+.content {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+.starbox {
+  width: 100%;
+  height: 100%;
+  background: #000; /* full black so starfield covers the entire dark area */
+  border-radius: 0; /* squared to fill edges */
+  border: none;
+  box-shadow: none;
+  overflow: hidden;
+  position: relative; /* reference for absolutely positioned stars */
+  z-index: 1;
+}
+
+/* The starfield is positioned relative inside the starbox so JS can place absolute stars */
+.starfield {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Footer: fixed and centered at bottom */
+.site-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #0b4da0;
+  color: #fff;
+  z-index: 60;
+  padding: 12px 0;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.4);
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+
+/* Stars: no changes to base animation, but ensure they render inside the starbox container */
+.star {
+  border: 1px solid transparent;
+  border-radius: 50%;
+  border-top-color: #fff;
+  margin: 0;
+  position: absolute;
+  transform-origin: left;
+  width: 1px;
+  height: 2px;
+  opacity: 0.92;
+}
+
+/* animation keyframes unchanged */
+.star:nth-child(2n) {
+  -webkit-animation-name: lightspeed;
+          animation-name: lightspeed;
+  -webkit-animation-duration: 4s;
+          animation-duration: 4s;
+  -webkit-animation-delay: 2s;
+          animation-delay: 2s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+@keyframes streak {
+  0% { width: 1px; opacity: 0.95; transform: scaleX(1) rotate(0deg); }
+  80% { opacity: 1; }
+  100% { width: 120vh; opacity: 0; }
+}
+
+/* Ensure topnav and footer remain fixed visually */
+.topnav, .site-footer { position: fixed; }
