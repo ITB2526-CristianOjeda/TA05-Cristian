@@ -1,0 +1,586 @@
+@-webkit-keyframes lightspeed {
+  100% {
+    width: 100vh;
+  }
+}
+@keyframes lightspeed {
+  100% {
+    width: 100vh;
+  }
+}
+.center {
+  display: none; /* center helper hidden */
+}
+
+body {
+  background-color: #000; /* deeper black for space */
+  min-height: 100vh;
+  position: relative;
+  overflow: auto; /* allow scrolling if needed */
+  font-family: 'Roboto', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #fff;
+  padding-top: var(--header-height);
+  padding-bottom: var(--footer-height); /* leave space for fixed footer */
+}
+
+/* Layout variables: adjust header/footer heights here */
+:root {
+  --header-height: 80px;
+  --footer-height: 64px;
+  --side-width: 360px;     /* increased: wider side panels so project info can expand */
+  --center-max: 640px;     /* slightly larger center to keep balance */
+}
+
+/* Typography system: modern/elegant */
+:root {
+  --type-heading: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --type-body: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --text-color: #FFFFFF;
+  --text-strong: 0 2px 8px rgba(10,20,40,0.45); /* soft shadow for headings */
+  --text-subtle: 0 1px 3px rgba(0,0,0,0.6);
+}
+
+/* Base typography */
+body {
+  font-family: var(--type-body);
+  font-weight: 400;
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings and prominent labels */
+h1, h2, h3, .project-title {
+  font-family: var(--type-heading);
+  font-weight: 800;          /* bold, impactful */
+  color: var(--text-color);
+  text-shadow: var(--text-strong);
+  letter-spacing: -0.01em;
+}
+
+/* Menu: larger, semi-bold, clear spacing */
+.menu li a {
+  font-family: var(--type-heading);
+  font-weight: 700;
+  font-size: 20px;           /* slightly bigger for prominence */
+  color: var(--text-color);
+  text-shadow: var(--text-subtle);
+}
+
+/* Project titles: big and centered */
+.side-content .project-title {
+  font-size: 2.6rem;
+  line-height: 1.02;
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+
+/* Project descriptions: readable, slightly lighter weight */
+.project-long-desc,
+.project-desc {
+  font-family: var(--type-body);
+  font-weight: 400;          /* regular for paragraphs */
+  font-size: 1.06rem;
+  color: rgba(255,255,255,0.94);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+}
+
+/* Header brand/logo spacing: make logo visually balanced with text */
+.header-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  box-shadow: 0 6px 18px rgba(11,77,160,0.25);
+  margin-right: 12px;
+}
+
+/* Footer readable text */
+.site-footer .footer-inner {
+  font-family: var(--type-body);
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-shadow: none;
+}
+
+/* Small emphasis for interactive elements (hover) */
+.menu li a:hover,
+.menu li a:focus {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+  transition: color .18s ease, text-decoration-color .18s ease;
+}
+
+/* Page layout: central area size derived from viewport minus header/footer */
+.page-layout {
+  display: block;
+  width: 100%;
+  margin: 0;
+  height: calc(100vh - var(--header-height) - var(--footer-height));
+  box-sizing: border-box;
+  padding: 0;
+  z-index: 10;
+}
+
+/* Center content box that now fills the available dark area */
+.content {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;   /* keep the three-column group centered on the page */
+  height: 100%;
+  width: 100%;
+  gap: 10px;                 /* reduced gap so side panels sit closer to center */
+  box-sizing: border-box;
+}
+
+/* side panels: use flex-basis via variable to ensure symmetry and crisp centering */
+.side-nav,
+.side-aside {
+  flex: 0 0 var(--side-width);
+  min-width: 220px; /* raise min-width so content doesn't wrap too early */
+  background: transparent !important; /* removed blue tint */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6px; /* smaller padding so content sits closer to panel edges */
+  box-sizing: border-box;
+  z-index: 2;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25); /* gentle shadow */
+}
+
+/* side-content: ahora apila verticalmente (título encima de la info) y centra todo */
+.side-content {
+  display: flex;
+  flex-direction: column;    /* apilar verticalmente: título arriba, info debajo */
+  align-items: center;       /* centrar horizontal los hijos */
+  justify-content: center;   /* centrar vertical dentro del panel */
+  gap: 10px;                 /* separación entre título y párrafos */
+  box-sizing: border-box;
+  padding: 6px 8px;
+  width: 100%;
+  text-align: center;        /* asegurar que todo el texto esté centrado */
+}
+
+/* título e información mantienen tamaños ya establecidos, solo ajuste de márgenes para claridad */
+.side-content .project-title {
+  margin: 0;
+  line-height: 1.03;
+  text-align: center;
+}
+
+/* asegurar que la descripción larga aparezca debajo y centrada */
+.side-content .project-long-desc,
+.side-content .project-desc {
+  margin: 0;
+  text-align: center;
+  line-height: 1.28;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+/* Keep the Galaxia / Stellar font-size emphasis but centered */
+.side-content.galaxia .project-title,
+.side-content.stellar .project-title {
+  font-size: 2.4rem;
+}
+
+/* responsive: allow a bit more width for the description in large screens */
+@media (min-width: 1200px) {
+  .side-content .project-desc { max-width: 220px; }
+}
+
+/* Increase project text size and ensure centered text */
+.side-content {
+  font-size: 1.25rem; /* larger text */
+  text-align: center; /* horizontally centered */
+  line-height: 1.1;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* ensure the center area grows and clips overflowing children */
+.center-area {
+  flex: 1 1 0%;
+  max-width: var(--center-max);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden; /* keeps loader inside container */
+  /* increased vertical padding so the loader doesn't touch top/bottom edges */
+  padding-top: 48px;
+  padding-bottom: 48px;
+  box-sizing: border-box;
+  /* ensure there's always a minimum vertical breathing room between header/footer */
+  min-height: calc(100vh - var(--header-height) - var(--footer-height) - 96px);
+}
+
+/* Center the middle loader area so the jedi icon is centered */
+.center-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* keep starbox full width but allow inner wrapper to size itself with padding */
+.starbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 480px;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+/* let the wrapper size to content and provide extra vertical padding */
+.starbox .wrapper {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: auto;        /* was 100% — now allows spacing from center-area padding */
+  padding-top: 12px;   /* small inner padding */
+  padding-bottom: 12px;
+}
+
+/* Larger loader: keep size but allow rotation (was disabled) */
+.starbox .wrapper .loading-wrapper {
+  position: relative;
+  width: 180px;  /* slightly larger ring */
+  height: 180px;
+  border: 2px solid #ADD8E6;
+  border-radius: 50%;
+  box-shadow: 0 0 18px .2px #ADD8E6;
+  animation: loader 1.5s linear infinite;
+  transform-origin: center center;
+}
+
+/* dots positioned relative to the larger wrapper */
+.starbox .dot,
+.starbox .dot-two {
+  position: absolute;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ADD8E6;
+  box-shadow: 0 0 14px .2px #ADD8E6;
+  transform: translateX(-50%);
+}
+
+.starbox .dot { top: -7px; } /* slightly above */
+.starbox .dot-two { top: calc(100% - 7px); } /* bottom edge */
+
+/* Bigger icon centered inside the ring (no static animation; JS injects and controls animation) */
+.starbox .icon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #ADD8E6;
+  font-size: 124px;  /* scale with ring */
+  border-radius: 50%;
+  height: 124px;
+  width: 124px;
+  text-align: center;
+  line-height: 1;
+  pointer-events: none;
+  /* animations applied by script: .icon.animate (iconGlow) */
+}
+
+/* animation keyframes unchanged */
+.star:nth-child(2n) {
+  -webkit-animation-name: lightspeed;
+          animation-name: lightspeed;
+  -webkit-animation-duration: 4s;
+          animation-duration: 4s;
+  -webkit-animation-delay: 2s;
+          animation-delay: 2s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+@keyframes streak {
+  0% { width: 1px; opacity: 0.95; transform: scaleX(1) rotate(0deg); }
+  80% { opacity: 1; }
+  100% { width: 120vh; opacity: 0; }
+}
+
+/* Ensure topnav and footer remain fixed visually */
+.topnav, .site-footer { position: fixed; }
+
+/* Keep header itself transparent and control stacking */
+.topnav {
+  background: transparent;
+  z-index: 1000; /* ensure header sits above page content */
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide blue rectangle behind the header (keep markup unchanged) */
+.topnav::before {
+  display: none !important;
+  /* if you prefer to remove the rule entirely, you can delete the original block instead */
+}
+
+/* Footer: no blue background, keep centered content */
+.site-footer {
+  background: transparent !important;
+  /* existing layout (fixed, height, centering) is preserved */
+}
+
+/* ensure footer inner remains centered and readable */
+.site-footer .footer-inner {
+  justify-content: center; /* ensure centering even without background */
+  background: transparent;
+}
+
+/* Footer: fixed, full width bar matching header color */
+.site-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--footer-height);
+  background: #0b4da0; /* same as header */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 55;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.35);
+}
+
+/* footer content: ensure readable contrast */
+.site-footer .footer-inner {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 16px;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+/* longer project description under the title (Galaxia Aurora) */
+.project-long-desc {
+  font-size: 0.96rem;
+  font-weight: 400;
+  color: rgba(255,255,255,0.92);
+  margin: 6px 0 0;
+  max-width: 220px;
+  line-height: 1.3;
+  text-align: center;
+}
+
+/* Responsive: stack on narrow viewports so side panels don't collide */
+@media (max-width: 900px) {
+  .content {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .side-nav,
+  .side-aside {
+    width: 100%;
+    min-width: 0;
+    height: 56px;
+    padding: 6px;
+    border-radius: 6px;
+    box-shadow: none;
+    flex: 0 0 auto;
+  }
+  .center-area {
+    height: calc(100vh - 64px - 56px * 2 - 24px);
+  }
+  .starbox .wrapper .loading-wrapper {
+    width: 120px;
+    height: 120px;
+  }
+  .starbox .icon {
+    font-size: 80px;
+    height: 80px;
+    width: 80px;
+  }
+}
+
+/* StellarPulse-specific styling: larger, centered and contained */
+.side-content.stellar {
+  /* center content vertically and horizontally in its panel */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+/* Larger project title for StellarPulse only */
+.side-content.stellar .project-title {
+  font-size: 2.4rem; /* larger title */
+  font-weight: 900;
+  line-height: 1.05;
+  margin: 0;
+  text-align: center;
+}
+
+/* Larger descriptive paragraph placed under the h1 */
+.side-content.stellar .project-long-desc {
+  font-size: 1.12rem; /* slightly larger than normal desc */
+  font-weight: 400;
+  color: rgba(255,255,255,0.95);
+  margin: 4px 0 0;
+  max-width: 100%; /* keeps text narrow so it doesn't push into main */
+  line-height: 1.3;
+  text-align: center;
+}
+
+/* leave the smaller project-desc below (if present) but ensure it stays centered */
+.side-content.stellar .project-desc {
+  font-size: 1.05rem;
+  margin-top: 8px;
+  max-width: 220px;
+  text-align: center;
+}
+
+/* responsive adjustments so StellarPulse remains readable on small screens */
+@media (max-width: 900px) {
+  .side-content.stellar .project-title { font-size: 1.4rem; }
+  .side-content.stellar .project-long-desc { font-size: 0.95rem; max-width: 90%; }
+  .side-content.stellar .project-desc { max-width: 90%; }
+}
+
+/* Galaxia-specific fine tuning */
+.side-content.galaxia .project-title { font-size: 2.4rem; }
+.side-content.galaxia .project-long-desc { font-size: 1.12rem; max-width: 100%; }
+
+/* Responsive: reduce sizes so side panels still fit on small screens */
+@media (max-width: 900px) {
+  .side-content .project-title { font-size: 1.35rem; }
+  .side-content .project-long-desc { font-size: 0.95rem; max-width: 90%; }
+  .side-content .project-desc { font-size: 0.92rem; max-width: 90%; }
+  .side-nav, .side-aside { padding: 6px; }
+}
+
+/* Header/menu styles: horizontal and centered */
+.topnav .nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 18px;
+  height: 100%;
+  box-sizing: border-box;
+  flex-wrap: nowrap; /* KEEP header elements on a single line */
+}
+
+/* Make UL menu horizontal and remove default list spacing */
+.menu {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+/* Ensure each list item doesn't add unexpected spacing */
+.menu li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Prevent menu links from wrapping to next line */
+.menu li a {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Small safety: allow header to scroll horizontally on extremely narrow viewports
+   instead of wrapping vertically */
+.topnav {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure no default page margin pushes the header down */
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Force header to sit at the very top of the viewport */
+.topnav {
+  position: fixed;           /* already used elsewhere, repeat to ensure */
+  top: 0;                    /* pinned to the top */
+  left: 0;
+  right: 0;
+  height: var(--header-height); /* keep height variable for layout consistency */
+  z-index: 1000;             /* above page content */
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: transparent;   /* keep background handling as before */
+}
+
+/* Ensure inner content stays above any background/pseudo elements */
+.topnav .nav-inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* Keep body content pushed down by header height to avoid overlap */
+body {
+  padding-top: var(--header-height); /* preserves spacing for fixed header */
+}
+
+/* Mejor lectura: permitir que las descripciones de proyecto sean más anchas
+   para reducir la altura total y ocupar el espacio vacío lateral */
+.side-content .project-long-desc,
+.side-content .project-desc,
+.project-long-desc {
+  max-width: 640px;   /* allow wider lines on larger screens */
+  width: 90%;         /* use more of the panel's horizontal space */
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center; /* mantener centrado como pediste */
+  box-sizing: border-box;
+}
+
+/* Si quieres que sean aún más amplias en pantallas muy anchas, descomenta: */
+/* @media (min-width: 1400px) {
+  .side-content .project-long-desc,
+  .side-content .project-desc {
+    max-width: 800px;
+    width: 70%;
+  }
+} */
+
+/* Responsive: en móviles y tabletas mantener ancho cómodo y sin desbordes */
+@media (max-width: 900px) {
+  .side-content .project-long-desc,
+  .side-content .project-desc,
+  .project-long-desc {
+    max-width: 90%;
+    width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  /* ensure side panels become full width on small screens (unchanged behavior) */
+  .side-nav,
+  .side-aside {
+    flex: 0 0 auto;
+    width: 100%;
+    min-width: 0;
+  }
+}
