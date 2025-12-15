@@ -1,0 +1,4 @@
+a {
+    text-decoration: none; /* Quita la línea de abajo */
+    color: inherit;        /* Hereda el color del texto que tenga el padre (blanco, gris, etc.) */
+}

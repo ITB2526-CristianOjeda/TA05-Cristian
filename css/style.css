@@ -25,10 +25,15 @@ body {
 
 /* Layout variables: adjust header/footer heights here */
 :root {
-  --header-height: 80px;
+  --header-height: 96px; /* increased a bit so logo fits comfortably */
   --footer-height: 64px;
   --side-width: 360px;     /* increased: wider side panels so project info can expand */
   --center-max: 640px;     /* slightly larger center to keep balance */
+}
+
+/* Small extra height for the page so the content area extends downward */
+:root {
+  --page-extra-height: 240px; /* adjust this value to make the page "longer" vertically */
 }
 
 /* Typography system: modern/elegant */
@@ -66,6 +71,7 @@ h1, h2, h3, .project-title {
   font-size: 20px;           /* slightly bigger for prominence */
   color: var(--text-color);
   text-shadow: var(--text-subtle);
+  text-decoration: underline;
 }
 
 /* Project titles: big and centered */
@@ -88,11 +94,24 @@ h1, h2, h3, .project-title {
 
 /* Header brand/logo spacing: make logo visually balanced with text */
 .header-logo {
-  width: 80px;
-  height: 80px;
+  /* reduce size so it never overflows the header */
+  width: auto;
+  height: auto;
+  max-height: calc(var(--header-height, 80px) - 12px); /* safe fit inside header */
+  max-width: 100%;
+  display: block;
+  object-fit: contain;
   border-radius: 50%;
   box-shadow: 0 6px 18px rgba(11,77,160,0.25);
   margin-right: 12px;
+}
+
+/* Small tweak for narrow screens: ensure logo remains proportionally smaller */
+@media (max-width: 900px) {
+  .header-logo {
+    max-height: calc(var(--header-height, 80px) - 20px);
+    margin-right: 8px;
+  }
 }
 
 /* Footer readable text */
@@ -112,111 +131,82 @@ h1, h2, h3, .project-title {
   transition: color .18s ease, text-decoration-color .18s ease;
 }
 
-/* Page layout: central area size derived from viewport minus header/footer */
+/* Page layout: allow content to expand and page to scroll when content is taller than viewport */
 .page-layout {
   display: block;
   width: 100%;
   margin: 0;
-  height: calc(100vh - var(--header-height) - var(--footer-height));
+  /* Use min-height so content can grow and page becomes scrollable when needed */
+  min-height: calc(100vh - var(--header-height) - var(--footer-height) + var(--page-extra-height));
   box-sizing: border-box;
-  padding: 0;
+  padding: 12px 0 0; /* small top padding to guarantee breathing room under the fixed header */
   z-index: 10;
+  /* allow the page area to scroll when content exceeds the available height */
+  overflow-y: auto;
 }
 
-/* Center content box that now fills the available dark area */
+/* Keep the three-column group centered and capped so columns don't grow indefinitely */
 .content {
   display: flex;
   align-items: stretch;
-  justify-content: center;   /* keep the three-column group centered on the page */
+  justify-content: center;
   height: 100%;
   width: 100%;
-  gap: 10px;                 /* reduced gap so side panels sit closer to center */
+  gap: clamp(8px, 1.2vw, 24px);
+  box-sizing: border-box;
+  flex-wrap: nowrap;
+  min-width: 0;
+
+  /* NEW: prevent the side panels from expanding into the centered logo on very wide screens */
+  /* Limit the overall width of the three-column layout and center it */
+  max-width: calc(var(--center-max) + var(--side-width) + var(--side-width) + 64px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ensure immediate flex children can shrink (prevents overflowing the container) */
+.content > * {
+  min-width: 0;
   box-sizing: border-box;
 }
 
-/* side panels: use flex-basis via variable to ensure symmetry and crisp centering */
-.side-nav,
-.side-aside {
-  flex: 0 0 var(--side-width);
-  min-width: 220px; /* raise min-width so content doesn't wrap too early */
-  background: transparent !important; /* removed blue tint */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 6px; /* smaller padding so content sits closer to panel edges */
-  box-sizing: border-box;
-  z-index: 2;
-  border-radius: 8px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.25); /* gentle shadow */
+/* Responsive breakpoint: when the page is reduced (e.g. half window) allow columns to wrap
+   earlier so titles/text don't collide with the menu/header. This prevents overlap at mid-sized widths. */
+@media (max-width: 1200px) {
+  .content {
+    flex-wrap: wrap;
+    align-items: flex-start; /* let wrapped rows stack naturally */
+    justify-content: center;
+    gap: 14px;
+  }
+  .side-nav,
+  .side-aside {
+    /* slightly reduce side panels on mid widths so the center has breathing room */
+    flex: 0 0 clamp(200px, 18vw, 320px);
+  }
 }
 
-/* side-content: ahora apila verticalmente (título encima de la info) y centra todo */
-.side-content {
-  display: flex;
-  flex-direction: column;    /* apilar verticalmente: título arriba, info debajo */
-  align-items: center;       /* centrar horizontal los hijos */
-  justify-content: center;   /* centrar vertical dentro del panel */
-  gap: 10px;                 /* separación entre título y párrafos */
-  box-sizing: border-box;
-  padding: 6px 8px;
-  width: 100%;
-  text-align: center;        /* asegurar que todo el texto esté centrado */
-}
-
-/* título e información mantienen tamaños ya establecidos, solo ajuste de márgenes para claridad */
-.side-content .project-title {
-  margin: 0;
-  line-height: 1.03;
-  text-align: center;
-}
-
-/* asegurar que la descripción larga aparezca debajo y centrada */
-.side-content .project-long-desc,
-.side-content .project-desc {
-  margin: 0;
-  text-align: center;
-  line-height: 1.28;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  max-width: 100%;
-}
-
-/* Keep the Galaxia / Stellar font-size emphasis but centered */
-.side-content.galaxia .project-title,
-.side-content.stellar .project-title {
-  font-size: 2.4rem;
-}
-
-/* responsive: allow a bit more width for the description in large screens */
-@media (min-width: 1200px) {
-  .side-content .project-desc { max-width: 220px; }
-}
-
-/* Increase project text size and ensure centered text */
-.side-content {
-  font-size: 1.25rem; /* larger text */
-  text-align: center; /* horizontally centered */
-  line-height: 1.1;
-  font-weight: 600;
-  color: #ffffff;
-}
-
-/* ensure the center area grows and clips overflowing children */
-.center-area {
-  flex: 1 1 0%;
-  max-width: var(--center-max);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden; /* keeps loader inside container */
-  /* increased vertical padding so the loader doesn't touch top/bottom edges */
-  padding-top: 48px;
-  padding-bottom: 48px;
-  box-sizing: border-box;
-  /* ensure there's always a minimum vertical breathing room between header/footer */
-  min-height: calc(100vh - var(--header-height) - var(--footer-height) - 96px);
+/* Keep the small-screen stacking behavior (unchanged) but ensure it's scrollable vertically */
+@media (max-width: 900px) {
+  .content {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+  .side-nav,
+  .side-aside {
+    flex: 0 0 auto;
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    padding: 6px;
+    border-radius: 6px;
+    box-shadow: none;
+  }
+  .center-area {
+    height: auto;
+    min-height: 40vh;
+  }
 }
 
 /* Center the middle loader area so the jedi icon is centered */
@@ -225,6 +215,10 @@ h1, h2, h3, .project-title {
   align-items: center;
   justify-content: center;
   padding: 20px;
+
+  /* NEW: bring the center above side panels so logo never gets visually 'eaten' */
+  position: relative;
+  z-index: 6;
 }
 
 /* keep starbox full width but allow inner wrapper to size itself with padding */
@@ -237,6 +231,9 @@ h1, h2, h3, .project-title {
   box-sizing: border-box;
   overflow: hidden;
   position: relative;
+
+  /* responsive: ensure starbox doesn't get clipped when above others */
+  z-index: 7; /* highest visual priority for the animated logo */
 }
 
 /* let the wrapper size to content and provide extra vertical padding */
@@ -315,12 +312,19 @@ h1, h2, h3, .project-title {
 /* Ensure topnav and footer remain fixed visually */
 .topnav, .site-footer { position: fixed; }
 
-/* Keep header itself transparent and control stacking */
+/* Header: solid black block the exact size of the header (does not grow) */
 .topnav {
-  background: transparent;
-  z-index: 1000; /* ensure header sits above page content */
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  background: #000 !important; /* pure black behind header content */
+  height: var(--header-height); /* ensure it stays the same fixed height */
+  box-shadow: none;             /* optional: keep it flat, remove any previous glow */
+}
+
+/* Ensure the inner nav retains full height and vertical centering */
+.topnav .nav-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Hide blue rectangle behind the header (keep markup unchanged) */
@@ -341,14 +345,15 @@ h1, h2, h3, .project-title {
   background: transparent;
 }
 
-/* Footer: fixed, full width bar matching header color */
+/* Footer: fixed, full width bar — ensure it uses its own height variable (no override to header height) */
 .site-footer {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
-  height: var(--footer-height);
-  background: #0b4da0; /* same as header */
+  height: var(--footer-height);     /* footer keeps its own height */
+  background: #000 !important;
+  box-shadow: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -375,9 +380,11 @@ h1, h2, h3, .project-title {
   font-weight: 400;
   color: rgba(255,255,255,0.92);
   margin: 6px 0 0;
-  max-width: 220px;
-  line-height: 1.3;
-  text-align: center;
+  line-height: 1.45;        /* a bit more breathing room for long lines */
+  text-align: left;         /* read left-to-right on wide lines */
+  width: 100%;              /* take full available width of the container */
+  max-width: none;          /* remove previous cap */
+  box-sizing: border-box;
 }
 
 /* Responsive: stack on narrow viewports so side panels don't collide */
@@ -388,13 +395,13 @@ h1, h2, h3, .project-title {
   }
   .side-nav,
   .side-aside {
+    flex: 0 0 auto;
     width: 100%;
     min-width: 0;
     height: 56px;
     padding: 6px;
     border-radius: 6px;
     box-shadow: none;
-    flex: 0 0 auto;
   }
   .center-area {
     height: calc(100vh - 64px - 56px * 2 - 24px);
@@ -514,6 +521,7 @@ h1, h2, h3, .project-title {
 
 /* Ensure no default page margin pushes the header down */
 html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -543,17 +551,52 @@ body {
   padding-top: var(--header-height); /* preserves spacing for fixed header */
 }
 
+/* Header block: make the header a fully black rectangle sized by --header-height */
+.topnav {
+  background: #000 !important;      /* solid black block */
+  height: var(--header-height);     /* use header variable so header grows a bit */
+  top: 0;
+  left: 0;
+  right: 0;
+  position: fixed;                  /* keep header fixed at top */
+  z-index: 1000;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure inner nav fills the header height and remains centered */
+.topnav .nav-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 18px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+/* Reserve the correct top spacing in the page so content doesn't overlap the header */
+body {
+  padding-top: var(--header-height); /* match header height so logo isn't clipped */
+  /* keep footer spacing intact */
+  padding-bottom: var(--footer-height);
+}
+
 /* Mejor lectura: permitir que las descripciones de proyecto sean más anchas
    para reducir la altura total y ocupar el espacio vacío lateral */
 .side-content .project-long-desc,
 .side-content .project-desc,
 .project-long-desc {
-  max-width: 640px;   /* allow wider lines on larger screens */
-  width: 90%;         /* use more of the panel's horizontal space */
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center; /* mantener centrado como pediste */
+  /* allow full horizontal expansion inside their panel */
+  max-width: none;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  text-align: left; /* left-aligned for easier long-line reading */
   box-sizing: border-box;
+  padding-left: 8px;  /* small inner padding to avoid touching edges */
+  padding-right: 8px;
 }
 
 /* Si quieres que sean aún más amplias en pantallas muy anchas, descomenta: */
@@ -582,5 +625,20 @@ body {
     flex: 0 0 auto;
     width: 100%;
     min-width: 0;
+  }
+}
+
+/* On very wide screens, give more breathing room between panels and center */
+@media (min-width: 1600px) {
+  .content {
+    gap: 48px; /* larger gap keeps center free from side text */
+    max-width: calc(var(--center-max) + var(--side-width) + var(--side-width) + 120px);
+  }
+  .side-nav,
+  .side-aside {
+    /* slightly reduce percent-based growth so side panels don't become huge */
+    width: 50%;  /* O prueba con 400px */
+    max-width: none !important; /* Quita límites anteriores */
+    flex-basis: auto !important; /* Si usa flexbox, esto ayuda a que crezca */
   }
 }
