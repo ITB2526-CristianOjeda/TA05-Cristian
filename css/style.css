@@ -1284,3 +1284,41 @@ input[type="search"] {
     /* 3. Estética */
     margin-right: 20px !important; /* Separación con el vecino */
 }
+
+/* =========================================
+   ESTILO PARA EL BLOQUE DE IMAGEN (TIPO BANNER)
+   ========================================= */
+
+/* 1. El contenedor (La caja) */
+.image-placeholder {
+    width: 100%;
+    /* ALTURA FIJA: Aquí decides qué tan alto es el bloque. */
+    /* Prueba con 250px, 300px, 400px... hasta que te guste. */
+    height: 300px !important;
+
+    /* POSICIÓN EN LA PÁGINA: */
+    /* Si lo quieres "más arriba" en la página, reduce el primer número (margin-top) */
+    margin: 20px auto 30px auto; /* Arriba, Derecha, Abajo, Izquierda */
+
+    /* Estética */
+    border-radius: 15px;
+    /* ESTA ES LA LÍNEA DEL BORDE VERDE/CIÁN: */
+    border: 2px solid rgba(77, 182, 172, 0.5);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+
+    /* IMPORTANTE: Esto oculta la parte de la imagen que se salga del bloque */
+    overflow: hidden;
+}
+
+/* 2. La imagen dentro */
+.image-placeholder img {
+    width: 100% !important;
+    height: 100% !important; /* Fuerza a la imagen a ocupar toda la altura del bloque */
+
+    /* LA MAGIA: */
+    /* 'cover' hace que la imagen rellene el espacio sin deformarse, recortando si hace falta */
+    object-fit: cover !important;
+
+    /* 'center top' asegura que se vea la parte de ARRIBA y el centro de la imagen */
+    object-position: 50% 30% !important;
+}
