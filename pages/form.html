@@ -1,64 +1,107 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <head>
+<html lang="es">
+<head>
     <meta charset="UTF-8">
-    <title>Jumping Into Lightspeed | Star Wars</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Orden Jedi | Canal de Comunicación</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Jack Domleo">
-    <meta name="description" content="CodePen animation of jumping into lightspeed from Star Wars.">
-    <meta name="keywords" content="star wars, lightspeed, starwars, lightspeed, codepen, jdomleo, jackdomleo, jack domleo, domleo">
-    <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
-    <!-- Add fonts -->
-    <!-- Fonts: modern, elegant and readable -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
-    <!-- Font Awesome for the jedi-order icon (no integrity to avoid blocking) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  </head>
 
-  <body>
-  <!-- Top navigation: changed nav -> header for semantic header -->
-  <header class="topnav" role="banner" aria-label="Main header">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/form.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+
+  <header class="topnav">
     <div class="nav-inner">
-      <!-- Clickable circular logo; inline styles removed so CSS controls size/spacing -->
-      <a href="../index.html" class="logo-link" aria-label="Ir al inicio">
+      <a href="../index.html" class="logo-link">
         <img src="../images/jedi_orden.png" alt="Logo" class="header-logo">
       </a>
-
       <ul class="menu">
         <li><a href="../pages/galaxia_aurora.html">Galaxia Aurora</a></li>
         <li><a href="../pages/stellarpulse.html">StellarPulse</a></li>
-        <li><a href="../pages/list_proyects.html">Listado de todos los proyectos</a></li>
-        <li><a href="../pages/form.html">Formulario</a></li>
+        <li><a href="../pages/list_proyects.html">Proyectos</a></li>
+        <li><a href="../pages/form.html" class="active">Formulario</a></li>
       </ul>
     </div>
   </header>
 
-<main class="contenedor-principal texto-centrado">
-  <h1 class="project-title">Formulario de Contacto</h1>
-  <form style="display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: 0 auto;">
-    <input type="text" placeholder="Nombre">
-    <textarea placeholder="Mensaje"></textarea>
-    <button type="submit">Enviar</button>
-  </form>
-</main>
+  <div class="page-layout">
+    <main class="contenedor-principal">
 
-  <!-- Footer -->
-  <footer class="site-footer" role="contentinfo">
+      <div class="holo-terminal">
+        <div class="terminal-header">
+            <i class="fas fa-broadcast-tower"></i>
+            <h2>Canal Seguro HoloNet</h2>
+            <p>Envía tu transmisión al Consejo Jedi.</p>
+        </div>
+
+        <form id="contactForm" class="jedi-form">
+
+            <div class="input-group">
+                <label for="name"><i class="fas fa-user-astronaut"></i> Identificación (Nombre)</label>
+                <input type="text" id="name" placeholder="Ej: Ahsoka Tano" required>
+            </div>
+
+            <div class="input-group">
+                <label for="email"><i class="fas fa-envelope-open-text"></i> Frecuencia de Respuesta (Email)</label>
+                <input type="email" id="email" placeholder="nombre@galaxia.com" required>
+            </div>
+
+            <div class="input-group">
+                <label for="planet"><i class="fas fa-globe"></i> Sistema de Origen</label>
+                <select id="planet">
+                    <option value="" disabled selected>Selecciona tu sector...</option>
+                    <option value="core">Mundos del Núcleo (Coruscant, etc.)</option>
+                    <option value="mid">Borde Medio (Naboo, Kashyyyk...)</option>
+                    <option value="outer">Borde Exterior (Tatooine, Hoth...)</option>
+                    <option value="unknown">Regiones Desconocidas</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="message"><i class="fas fa-comment-dots"></i> Contenido de la Transmisión</label>
+                <textarea id="message" rows="5" placeholder="Escriba su mensaje aquí..." required></textarea>
+            </div>
+
+            <button type="submit" class="send-btn">
+                <span class="btn-text">Iniciar Transmisión</span>
+                <i class="fas fa-paper-plane"></i>
+            </button>
+
+            <div id="successMessage" class="success-box hidden">
+                <i class="fas fa-check-circle"></i> Transmisión recibida correctamente. Que la fuerza te acompañe.
+            </div>
+
+        </form>
+      </div>
+
+    </main>
+  </div>
+
+  <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <div class="footer-sphere" aria-hidden="true"></div>
-        <span>© 2025 Cristian Ojeda, Jesús Palma — Todos los derechos reservados</span>
+        <div class="footer-sphere"></div>
+        <span>© 2025 Cristian Ojeda, Jesús Palma</span>
       </div>
-      <div class="socials">Twitter &nbsp;|&nbsp; Facebook &nbsp;|&nbsp; Instagram</div>
+      <div class=\"socials\">Canal Seguro</div>
     </div>
   </footer>
 
-    <!-- existing script inclusion moved here -->
-    <script src="./js/script.js"></script>
-  </body>
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Evita que se recargue la página real
 
-</html>
+        const btn = document.querySelector('.send-btn');
+        const originalText = btn.innerHTML;
+        const successBox = document.getElementById('successMessage');
+
+        // 1. Simular carga
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Encriptando...';
+        btn.style.opacity = '0.7';
+
+        // 2. Esperar 2 segundos y mostrar éxito
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.style.opacity = '1';

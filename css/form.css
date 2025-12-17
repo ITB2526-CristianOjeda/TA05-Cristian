@@ -1,0 +1,175 @@
+/* --- ESTILOS DE LA TERMINAL (FORMULARIO) --- */
+
+/* Contenedor estilo tarjeta holográfica */
+.holo-terminal {
+    background: rgba(10, 15, 20, 0.85); /* Fondo oscuro semitransparente */
+    border: 1px solid rgba(77, 182, 172, 0.3); /* Borde sutil cián */
+    border-radius: 15px;
+    padding: 40px;
+    max-width: 600px;
+    margin: 0 auto 50px auto; /* Centrado */
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8),
+                inset 0 0 20px rgba(77, 182, 172, 0.05); /* Resplandor interior */
+    backdrop-filter: blur(10px); /* Efecto cristal borroso */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Línea decorativa superior estilo Star Wars */
+.holo-terminal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #4db6ac, transparent);
+    box-shadow: 0 0 10px #4db6ac;
+}
+
+/* Header del formulario */
+.terminal-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.terminal-header h2 {
+    font-family: 'Poppins', sans-serif;
+    color: #4db6ac;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 10px 0;
+}
+
+.terminal-header i {
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.terminal-header p {
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+/* --- CAMPOS DEL FORMULARIO --- */
+.jedi-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ddd;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.input-group label i {
+    color: #4db6ac;
+    margin-right: 5px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Inputs y Textarea */
+.input-group input,
+.input-group select,
+.input-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* Efecto al hacer clic en un campo (Focus) */
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    border-color: #4db6ac; /* Se vuelve cián */
+    box-shadow: 0 0 10px rgba(77, 182, 172, 0.3); /* Resplandor */
+    background: rgba(0, 20, 20, 0.8);
+}
+
+/* Placeholder color */
+::placeholder {
+    color: #666;
+}
+
+/* --- BOTÓN DE ENVÍO --- */
+.send-btn {
+    margin-top: 10px;
+    padding: 15px;
+    background: linear-gradient(45deg, #004d40, #00695c);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.send-btn:hover {
+    background: linear-gradient(45deg, #00695c, #4db6ac);
+    box-shadow: 0 0 20px rgba(77, 182, 172, 0.6);
+    transform: translateY(-2px);
+}
+
+.send-btn:active {
+    transform: scale(0.98);
+}
+
+/* --- MENSAJE DE ÉXITO --- */
+.success-box {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(0, 230, 118, 0.1);
+    border: 1px solid #00e676;
+    color: #00e676;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+    transition: all 0.5s ease;
+}
+
+.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.visible {
+    display: block;
+    opacity: 1;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    .holo-terminal {
+        padding: 20px;
+        margin: 0 15px 50px 15px;
+    }
+}

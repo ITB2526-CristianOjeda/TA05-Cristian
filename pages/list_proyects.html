@@ -1,65 +1,179 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <head>
+<html lang="es">
+<head>
     <meta charset="UTF-8">
-    <title>Jumping Into Lightspeed | Star Wars</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Archivos de la Orden | Lista de Proyectos</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Jack Domleo">
-    <meta name="description" content="CodePen animation of jumping into lightspeed from Star Wars.">
-    <meta name="keywords" content="star wars, lightspeed, starwars, lightspeed, codepen, jdomleo, jackdomleo, jack domleo, domleo">
-    <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
-    <!-- Add fonts -->
-    <!-- Fonts: modern, elegant and readable -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/list_proyects.css">
-
-    <!-- Font Awesome for the jedi-order icon (no integrity to avoid blocking) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  </head>
+</head>
 
-  <body>
-  <!-- Top navigation: changed nav -> header for semantic header -->
-  <header class="topnav" role="banner" aria-label="Main header">
+<body>
+
+  <header class="topnav">
     <div class="nav-inner">
-      <!-- Clickable circular logo; inline styles removed so CSS controls size/spacing -->
-      <a href="../index.html" class="logo-link" aria-label="Ir al inicio">
+      <a href="../index.html" class="logo-link">
         <img src="../images/jedi_orden.png" alt="Logo" class="header-logo">
       </a>
-
       <ul class="menu">
         <li><a href="../pages/galaxia_aurora.html">Galaxia Aurora</a></li>
         <li><a href="../pages/stellarpulse.html">StellarPulse</a></li>
-        <li><a href="../pages/list_proyects.html">Listado de todos los proyectos</a></li>
+        <li><a href="../pages/list_proyects.html" class="active">Proyectos</a></li>
         <li><a href="../pages/form.html">Formulario</a></li>
       </ul>
     </div>
   </header>
 
-<main class="contenedor-principal texto-centrado">
-  <h1 class="project-title">Nuestros Proyectos</h1>
-  <ul style="list-style: none; padding: 0;">
-    <li>Galaxia Aurora</li>
-    <li>StellarPulse</li>
-  </ul>
-</main>
+  <div class="page-layout">
+    <main class="contenedor-principal texto-centrado" style="max-width: 1200px !important;">
 
-  <!-- Footer -->
-  <footer class="site-footer" role="contentinfo">
+      <h1 class="project-title">Archivos del Templo</h1>
+      <p>Explora la base de datos de proyectos activos y clasificados.</p>
+
+      <div class="controls-container">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="searchInput" placeholder="Buscar proyecto por nombre...">
+        </div>
+
+        <div class="filter-box">
+          <select id="categoryFilter">
+            <option value="all">Todas las Categorías</option>
+            <option value="Exploración">🔭 Exploración</option>
+            <option value="Defensa">🛡️ Defensa</option>
+            <option value="Inteligencia">🧠 IA / Datos</option>
+            <option value="Infraestructura">🏗️ Infraestructura</option>
+          </select>
+
+          <select id="difficultyFilter">
+            <option value="all">Cualquier Dificultad</option>
+            <option value="Padawan">🟢 Nivel Padawan (Bajo)</option>
+            <option value="Caballero">🟡 Nivel Caballero (Medio)</option>
+            <option value="Maestro">🔴 Nivel Maestro (Alto)</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="projectsGrid" class="projects-grid"></div>
+
+    </main>
+  </div>
+
+  <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <div class="footer-sphere" aria-hidden="true"></div>
-        <span>© 2025 Cristian Ojeda, Jesús Palma — Todos los derechos reservados</span>
+        <div class="footer-sphere"></div>
+        <span>© 2025 Cristian Ojeda, Jesús Palma</span>
       </div>
-      <div class="socials">Twitter &nbsp;|&nbsp; Facebook &nbsp;|&nbsp; Instagram</div>
+      <div class="socials">Archivos de la República</div>
     </div>
   </footer>
 
-    <!-- existing script inclusion moved here -->
-    <script src="./js/script.js"></script>
-  </body>
+  <script>
+    // 1. BASE DE DATOS DE PROYECTOS (2 REALES + 28 INVENTADOS)
+    const projects = [
+      // PROYECTOS REALES
+      { name: "Galaxia Aurora", desc: "Mapa interactivo 3D del universo conocido.", category: "Exploración", difficulty: "Maestro", link: "../pages/galaxia_aurora.html", real: true },
+      { name: "StellarPulse", desc: "Analizador de señales de radiofrecuencia.", category: "Inteligencia", difficulty: "Caballero", link: "../pages/stellarpulse.html", real: true },
 
+      // PROYECTOS INVENTADOS
+      { name: "Protocolo C-3PO", desc: "Traductor universal de 6 millones de formas.", category: "Inteligencia", difficulty: "Maestro" },
+      { name: "Escudo Deflector V2", desc: "Mejora de escudos planetarios.", category: "Defensa", difficulty: "Caballero" },
+      { name: "HoloNet Secure", desc: "Red de comunicación encriptada.", category: "Infraestructura", difficulty: "Padawan" },
+      { name: "Sable Kyber", desc: "Calibrador de cristales de sable de luz.", category: "Defensa", difficulty: "Maestro" },
+      { name: "Ruta Kessel", desc: "Optimizador de rutas de contrabando.", category: "Exploración", difficulty: "Caballero" },
+      { name: "Droide Médico 2-1B", desc: "Software de cirugía autónoma.", category: "Inteligencia", difficulty: "Maestro" },
+      { name: "Arquitectura Estrella", desc: "Planos de estaciones espaciales.", category: "Infraestructura", difficulty: "Caballero" },
+      { name: "Motor Hiperespacio", desc: "Simulación de saltos luz.", category: "Exploración", difficulty: "Maestro" },
+      { name: "Radar Wookiee", desc: "Detector de formas de vida en bosques.", category: "Exploración", difficulty: "Padawan" },
+      { name: "Código Jedi", desc: "Base de datos de filosofía antigua.", category: "Inteligencia", difficulty: "Padawan" },
+      { name: "Caza TIE Silencer", desc: "Prototipo de motor iónico sigiloso.", category: "Defensa", difficulty: "Maestro" },
+      { name: "Granja de Humedad", desc: "Gestión eficiente de agua en desiertos.", category: "Infraestructura", difficulty: "Padawan" },
+      { name: "Podracer Sim", desc: "Simulador de carreras de vainas.", category: "Exploración", difficulty: "Caballero" },
+      { name: "Clonadora Kamino", desc: "Secuenciador de ADN rápido.", category: "Inteligencia", difficulty: "Maestro" },
+      { name: "Ewok Village", desc: "Ingeniería de casas en árboles.", category: "Infraestructura", difficulty: "Padawan" },
+      { name: "Cantina Jukebox", desc: "Reproductor de música Bith.", category: "Infraestructura", difficulty: "Padawan" },
+      { name: "Rastreador Bounty", desc: "Sistema de localización de objetivos.", category: "Defensa", difficulty: "Caballero" },
+      { name: "Holocron Keeper", desc: "Sistema de archivo de seguridad.", category: "Inteligencia", difficulty: "Maestro" },
+      { name: "X-Wing Navigation", desc: "Asistente de vuelo para combate.", category: "Defensa", difficulty: "Caballero" },
+      { name: "Reactor de Fusión", desc: "Control de núcleos de energía.", category: "Infraestructura", difficulty: "Maestro" },
+      { name: "Traductor Sith", desc: "Decodificador de lenguas antiguas.", category: "Inteligencia", difficulty: "Maestro" },
+      { name: "Speeder Bike OS", desc: "Sistema operativo para motos jet.", category: "Exploración", difficulty: "Padawan" },
+      { name: "Base Hoth", desc: "Sistemas de calefacción térmica.", category: "Infraestructura", difficulty: "Caballero" },
+      { name: "Scanner Midicloriano", desc: "Analizador de potencial de fuerza.", category: "Inteligencia", difficulty: "Maestro" },
+      { name: "Detonador Térmico", desc: "Simulación de radio de explosión.", category: "Defensa", difficulty: "Padawan" },
+      { name: "Nano-Droides", desc: "Reparación de cascos en vacío.", category: "Infraestructura", difficulty: "Maestro" },
+      { name: "Mapa Borde Exterior", desc: "Cartografía de zonas desconocidas.", category: "Exploración", difficulty: "Caballero" },
+      { name: "Escudo Gungan", desc: "Tecnología de burbujas hidrostáticas.", category: "Defensa", difficulty: "Caballero" }
+    ];
+
+    const grid = document.getElementById('projectsGrid');
+    const searchInput = document.getElementById('searchInput');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const difficultyFilter = document.getElementById('difficultyFilter');
+
+    // FUNCIÓN PARA PINTAR LOS PROYECTOS
+    function renderProjects(filterText = "", filterCat = "all", filterDiff = "all") {
+      grid.innerHTML = ""; // Limpiar grid
+
+      const filtered = projects.filter(p => {
+        const matchesText = p.name.toLowerCase().includes(filterText.toLowerCase());
+        const matchesCat = filterCat === "all" || p.category === filterCat;
+        const matchesDiff = filterDiff === "all" || p.difficulty === filterDiff;
+        return matchesText && matchesCat && matchesDiff;
+      });
+
+      if(filtered.length === 0) {
+        grid.innerHTML = "<p style='grid-column: 1/-1; margin-top:20px;'>No se encontraron archivos con esos criterios.</p>";
+        return;
+      }
+
+      filtered.forEach(p => {
+        const card = document.createElement('div');
+        card.className = `project-card ${p.real ? 'real-project' : ''}`;
+
+        // Icono según categoría
+        let icon = "fa-folder";
+        if(p.category === "Exploración") icon = "fa-rocket";
+        if(p.category === "Defensa") icon = "fa-shield-alt";
+        if(p.category === "Inteligencia") icon = "fa-brain";
+        if(p.category === "Infraestructura") icon = "fa-tools";
+
+        // Botón (Enlace o Candado)
+        const buttonHtml = p.real
+          ? `<a href="${p.link}" class="card-btn btn-access">Acceder</a>`
+          : `<span class="card-btn btn-locked"><i class="fas fa-lock"></i> Clasificado</span>`;
+
+        card.innerHTML = `
+          <div class="card-header">
+            <span class="badge ${p.difficulty}">${p.difficulty}</span>
+            <i class="fas ${icon} card-icon"></i>
+          </div>
+          <h3>${p.name}</h3>
+          <p>${p.desc}</p>
+          <div class="card-footer">
+            <span class="cat-label">${p.category}</span>
+            ${buttonHtml}
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // EVENTOS PARA QUE FUNCIONE EL BUSCADOR Y FILTROS
+    searchInput.addEventListener('input', () => update());
+    categoryFilter.addEventListener('change', () => update());
+    difficultyFilter.addEventListener('change', () => update());
+
+    function update() {
+      renderProjects(searchInput.value, categoryFilter.value, difficultyFilter.value);
+    }
+
+    // Inicializar
+    renderProjects();
+  </script>
+</body>
 </html>

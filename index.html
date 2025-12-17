@@ -1,94 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <head>
+<html lang="es">
+<head>
     <meta charset="UTF-8">
-    <title>Jumping Into Lightspeed | Star Wars</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Orden Jedi | Inicio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Jack Domleo">
-    <meta name="description" content="CodePen animation of jumping into lightspeed from Star Wars.">
-    <meta name="keywords" content="star wars, lightspeed, starwars, lightspeed, codepen, jdomleo, jackdomleo, jack domleo, domleo">
-    <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
-    <!-- Add fonts -->
-    <!-- Fonts: modern, elegant and readable -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
-    <!-- Font Awesome for the jedi-order icon (no integrity to avoid blocking) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  </head>
+</head>
 
-  <body>
-  <!-- Top navigation: changed nav -> header for semantic header -->
-  <header class="topnav" role="banner" aria-label="Main header">
+<body>
+
+  <header class="topnav">
     <div class="nav-inner">
-      <!-- Clickable circular logo; inline styles removed so CSS controls size/spacing -->
-      <a href="index.html" class="logo-link" aria-label="Ir al inicio">
-        <img src="./images/jedi_orden.png" alt="Logo" class="header-logo">
-      </a>
-
       <ul class="menu">
         <li><a href="./pages/galaxia_aurora.html">Galaxia Aurora</a></li>
         <li><a href="./pages/stellarpulse.html">StellarPulse</a></li>
-        <li><a href="./pages/list_proyects.html">Listado de todos los proyectos</a></li>
+        <li><a href="./pages/list_proyects.html">Proyectos</a></li>
         <li><a href="./pages/form.html">Formulario</a></li>
       </ul>
     </div>
   </header>
 
-  <!-- Page layout: single content area filling the dark space -->
-  <div class="page-layout" role="main">
-    <main class="content" id="content">
+  <main class="home-container">
 
-      <!-- Left project nav -->
-<nav class="side-nav" aria-label="Project navigation">
-  <div class="side-content galaxia">
-    <div class="project-title">Galaxia Aurora</div>
-    <p class="project-long-desc">
-      Galaxia Aurora es un mapa galáctico en 3D creado por Jesús y Cristian que permite explorar sistemas estelares, nebulosas y planetas ficticios, combinando datos astronómicos reales con mundos imaginados. Los usuarios pueden viajar por la galaxia, conocer información de planetas y fenómenos cósmicos, e interactuar con un entorno visual y educativo. Nació como un pequeño experimento inspirado en las imágenes del telescopio James Webb y se convirtió en un mapa completo con más de 40 sistemas estelares. Aunque muy atractivo y educativo, requiere un navegador moderno y algunas secciones aún no tienen información detallada.
-    </p>
-  </div>
-</nav>
-
-      <!-- Center area with loader -->
-      <div class="center-area">
-        <!-- expanded starfield box fills the black area between header and footer -->
-        <div class="starbox">
-          <!-- loader replaced the starfield -->
-          <div class="wrapper" aria-hidden="true">
-            <div class="loading-wrapper">
-              <div class="circle"></div>
-              <div class="dot"></div>
-              <div class="dot-two"></div>
-            </div>
-            <i class="fab fa-jedi-order icon"></i>
-          </div>
+    <section class="holo-card left-panel">
+        <div class="card-content">
+            <h2 class="aurora-title">Galaxia Aurora</h2>
+            <p>
+                Un mapa interactivo 3D que combina datos reales y ficticios.
+                Viaja por sistemas estelares, nebulosas y descubre los secretos del cosmos.
+            </p>
+            <a href="./pages/galaxia_aurora.html" class="cta-btn aurora-btn">
+                <i class="fas fa-rocket"></i> Iniciar Viaje
+            </a>
         </div>
-      </div>
+    </section>
 
-<aside class="side-aside" aria-label="Project details">
-  <div class="side-content stellar">
-    <div class="project-title">StellarPulse</div>
-    <p class="project-long-desc">
-      StellarPulse, también creado por Jesús y Cristian, es un simulador de señales del espacio profundo que permite analizar ondas y patrones de galaxias lejanas, mostrando gráficos, sonidos y registros históricos de señales. Los usuarios pueden investigar anomalías y experimentar como astrofísicos, combinando ciencia real con simulación creativa. Inspirado en las señales FRB y la inteligencia artificial, StellarPulse hace accesible la astrofísica de manera divertida. Aunque interactivo y educativo, algunas simulaciones tardan en generarse y aún no permite comparaciones entre usuarios.
-    </p>
-  </div>
-</aside>
+    <section class="center-display">
+    <div class="wrapper">
+        <div class="loading-wrapper">
+            <div class="dot"></div>
+            <div class="dot-two"></div>
+        </div>
+        <i class="fab fa-jedi-order icon"></i>
+    </div>
+    </section>
 
-  <!-- Footer -->
-  <footer class="site-footer" role="contentinfo">
+    <section class="holo-card right-panel">
+        <div class="card-content">
+            <h2 class="stellar-title">StellarPulse</h2>
+            <p>
+                Simulador avanzado de señales de radiofrecuencia.
+                Analiza patrones, detecta anomalías y decodifica mensajes del espacio profundo.
+            </p>
+            <a href="./pages/stellarpulse.html" class="cta-btn stellar-btn">
+                <i class="fas fa-satellite-dish"></i> Analizar Señal
+            </a>
+        </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <div class="footer-sphere" aria-hidden="true"></div>
-        <span>© 2025 Cristian Ojeda, Jesús Palma — Todos los derechos reservados</span>
+        <div class=\"footer-sphere\"></div>
+        <span>© 2025 Cristian Ojeda, Jesús Palma</span>
       </div>
-      <div class="socials">Twitter &nbsp;|&nbsp; Facebook &nbsp;|&nbsp; Instagram</div>
+      <div class="socials">Templo Jedi</div>
     </div>
   </footer>
 
-    <!-- existing script inclusion moved here -->
-    <script src="./js/script.js"></script>
-  </body>
-
+  <script src="./js/script.js"></script>
+</body>
 </html>
