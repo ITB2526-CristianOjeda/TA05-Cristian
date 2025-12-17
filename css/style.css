@@ -157,6 +157,7 @@ h1, h2, h3, .project-title {
   flex-wrap: nowrap;
   min-width: 0;
 
+
   /* NEW: prevent the side panels from expanding into the centered logo on very wide screens */
   /* Limit the overall width of the three-column layout and center it */
   max-width: calc(var(--center-max) + var(--side-width) + var(--side-width) + 64px);
@@ -641,4 +642,133 @@ body {
     max-width: none !important; /* Quita límites anteriores */
     flex-basis: auto !important; /* Si usa flexbox, esto ayuda a que crezca */
   }
+}
+
+/* Fuerza al contenedor a ignorar las reglas de columnas del index */
+.contenedor-principal {
+    max-width: 800px;
+    margin: 60px auto !important; /* El !important asegura que ignore márgenes del index */
+    padding: 20px;
+    display: block !important;
+}
+
+.texto-centrado {
+    text-align: center;
+}
+
+/* Ajuste para que el título no sea tan pequeño */
+.contenedor-principal .project-title {
+    font-size: 3rem;
+    margin-bottom: 30px;
+    display: block;
+}
+
+/* 1. Bajamos el área del logo central para que no choque con los títulos */
+.center-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px; /* Empuja el logo hacia abajo */
+  position: relative;
+  z-index: 1; /* Lo mantenemos detrás por si los textos crecen */
+}
+
+/* 2. Ajustamos los títulos para que estén arriba del texto */
+.side-content .project-title {
+  font-size: 2.4rem;
+  margin-bottom: 15px; /* Espacio entre título y párrafo */
+  text-align: center;  /* Centrado respecto a su párrafo */
+  display: block;
+}
+
+/* 3. Aseguramos que los párrafos tengan buen ancho y no se amontonen */
+.side-content .project-long-desc {
+  text-align: justify; /* Mejora la lectura en bloques de texto */
+  line-height: 1.6;
+  max-width: 350px;    /* Evita que el texto sea demasiado ancho */
+}
+
+/* 4. Alineación de las columnas laterales */
+.side-nav, .side-aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Alinea los textos hacia la parte superior */
+  padding-top: 40px;
+}
+
+/* Quitar el fondo a los bloques de los proyectos en el index */
+.side-content,
+.side-content.stellar,
+.side-content.galaxia,
+.contenedor-principal {
+    background-color: transparent !important; /* Elimina cualquier color de fondo */
+    background: none !important;             /* Asegura que no haya gradientes */
+    box-shadow: none !important;            /* Quita sombras que puedan simular un bloque sólido */
+    border: none !important;                /* Quita bordes si los hubiera */
+}
+
+/* Si los textos se vuelven difíciles de leer sobre el fondo de estrellas,
+   puedes añadir una sombra suave a la propia letra para que resalte */
+.project-title,
+.project-long-desc {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* --- SOLUCIÓN PARA SEPARAR LOS TEXTOS DEL LOGO CENTRAL --- */
+
+/* 1. Aumentamos drásticamente el hueco entre las columnas */
+.content {
+    gap: 80px !important;          /* Aumenta el espacio vacío entre las 3 partes */
+    max-width: 98% !important;     /* Permite usar casi todo el ancho de la pantalla */
+    justify-content: space-between !important; /* Empuja los lados a los extremos */
+}
+
+/* 2. Protegemos el logo central asignándole un "espacio sagrado" */
+.center-area {
+    min-width: 400px !important;   /* Reserva este ancho MÍNIMO para el logo. Nadie puede entrar aquí. */
+    flex-shrink: 0;                /* Prohíbe que el logo se encoja si falta espacio */
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+/* 3. Ajustamos los textos para que sean más estrechos y no se estiren hacia el centro */
+.side-content .project-long-desc {
+    max-width: 350px !important;   /* Reduce un poco el ancho del párrafo para que no choque */
+    margin: 0 auto;                /* Mantiene el texto centrado en su propia columna */
+}
+
+/* 4. Forzamos la alineación de los bloques laterales a sus extremos */
+/* Bloque Izquierdo (Galaxia Aurora) se pega a la izquierda */
+.side-nav {
+    align-items: center !important; /* Centra el texto en su columna */
+    padding-left: 20px;             /* Un poco de margen desde el borde de la pantalla */
+}
+
+/* Bloque Derecho (StellarPulse) se pega a la derecha */
+.side-aside {
+    align-items: center !important; /* Centra el texto en su columna */
+    padding-right: 20px;            /* Un poco de margen desde el borde de la pantalla */
+}
+
+/* --- UNIFICACIÓN DE TEXTOS Y FUENTES --- */
+
+.side-content .project-title,
+.side-content .project-long-desc {
+    font-family: 'Poppins', sans-serif !important; /* Asegura la misma fuente en ambos */
+    color: #ffffff !important;                     /* Asegura el mismo color blanco */
+}
+
+.side-content .project-long-desc {
+    text-align: center !important;      /* IMPORTANTE: Usamos 'center' o 'left' para evitar huecos feos */
+    font-size: 1rem !important;         /* Mismo tamaño de letra */
+    font-weight: 300 !important;        /* Grosor fino y elegante */
+    letter-spacing: 0.5px !important;   /* Espacio entre letras constante */
+    line-height: 1.6 !important;        /* Espacio entre líneas igual */
+    word-spacing: normal !important;    /* Evita que las palabras se estiren */
+}
+
+/* Opcional: Si quieres el título un poco más grueso */
+.side-content .project-title {
+    font-weight: 600 !important;
+    letter-spacing: 1px !important;
 }
