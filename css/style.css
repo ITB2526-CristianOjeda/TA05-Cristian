@@ -1264,3 +1264,23 @@ body {
 .menu li a.active::after {
     width: 100%;
 }
+
+/* ======================================================
+   FORZAR TAMAÑO DEL BUSCADOR (SOLUCIÓN AGRESIVA)
+   ====================================================== */
+
+/* Atacamos directamente a la etiqueta input de texto */
+input[type="text"],
+input[type="search"] {
+
+    /* 1. Definimos el tamaño */
+    width: 285px !important;
+    max-width: 285px !important; /* Doble seguridad */
+
+    /* 2. IMPORTANTE: Romper la regla de Flexbox */
+    /* Esto le dice: "No te estires para llenar el hueco vacío" */
+    flex: 0 0 200px !important;
+
+    /* 3. Estética */
+    margin-right: 20px !important; /* Separación con el vecino */
+}
