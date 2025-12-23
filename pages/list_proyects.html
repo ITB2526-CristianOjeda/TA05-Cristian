@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Archivos de la Orden | Lista de Proyectos</title>
+    <title>Order Archives | Project List</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -19,10 +19,10 @@
         <img src="../images/jedi_orden.png" alt="Logo" class="header-logo">
       </a>
       <ul class="menu">
-        <li><a href="../pages/galaxia_aurora.html">Galaxia Aurora</a></li>
+        <li><a href="../pages/galaxia_aurora.html">Aurora Galaxy</a></li>
         <li><a href="../pages/stellarpulse.html">StellarPulse</a></li>
-        <li><a href="../pages/list_proyects.html" class="active">Proyectos</a></li>
-        <li><a href="../pages/form.html">Formulario</a></li>
+        <li><a href="../pages/list_proyects.html" class="active">Projects</a></li>
+        <li><a href="../pages/form.html">Form</a></li>
       </ul>
     </div>
   </header>
@@ -30,29 +30,29 @@
   <div class="page-layout">
     <main class="contenedor-principal texto-centrado" style="max-width: 1200px !important;">
 
-      <h1 class="project-title">Archivos del Templo</h1>
-      <p>Explora la base de datos de proyectos activos y clasificados.</p>
+      <h1 class="project-title">Temple Archives</h1>
+      <p>Explore the database of active and classified projects.</p>
 
       <div class="controls-container">
         <div class="search-box">
           <i class="fas fa-search"></i>
-          <input type="text" id="searchInput" placeholder="Buscar proyecto por nombre...">
+          <input type="text" id="searchInput" placeholder="Search project by name...">
         </div>
 
         <div class="filter-box">
           <select id="categoryFilter">
-            <option value="all">Todas las Categorías</option>
-            <option value="Exploración">🔭 Exploración</option>
-            <option value="Defensa">🛡️ Defensa</option>
-            <option value="Inteligencia">🧠 IA / Datos</option>
-            <option value="Infraestructura">🏗️ Infraestructura</option>
+            <option value="all">All Categories</option>
+            <option value="Exploration">🔭 Exploration</option>
+            <option value="Defense">🛡️ Defense</option>
+            <option value="Intelligence">🧠 AI / Data</option>
+            <option value="Infrastructure">🏗️ Infrastructure</option>
           </select>
 
           <select id="difficultyFilter">
-            <option value="all">Cualquier Dificultad</option>
-            <option value="Padawan">🟢 Nivel Padawan (Bajo)</option>
-            <option value="Caballero">🟡 Nivel Caballero (Medio)</option>
-            <option value="Maestro">🔴 Nivel Maestro (Alto)</option>
+            <option value="all">Any Difficulty</option>
+            <option value="Padawan">🟢 Padawan Level (Low)</option>
+            <option value="Knight">🟡 Knight Level (Medium)</option>
+            <option value="Master">🔴 Master Level (High)</option>
           </select>
         </div>
       </div>
@@ -68,46 +68,47 @@
         <div class="footer-sphere"></div>
         <span>© 2025 Cristian Ojeda, Jesús Palma</span>
       </div>
-      <div class="socials">Archivos de la República</div>
+      <div class="socials">Republic Archives</div>
     </div>
   </footer>
 
   <script>
-    // 1. BASE DE DATOS DE PROYECTOS (2 REALES + 28 INVENTADOS)
+    // 1. PROJECT DATABASE (2 REAL + 28 INVENTED)
+    // Translated descriptions, categories and difficulties to match the English UI
     const projects = [
-      // PROYECTOS REALES
-      { name: "Galaxia Aurora", desc: "Mapa interactivo 3D del universo conocido.", category: "Exploración", difficulty: "Maestro", link: "../pages/galaxia_aurora.html", real: true },
-      { name: "StellarPulse", desc: "Analizador de señales de radiofrecuencia.", category: "Inteligencia", difficulty: "Caballero", link: "../pages/stellarpulse.html", real: true },
+      // REAL PROJECTS
+      { name: "Aurora Galaxy", desc: "Interactive 3D map of the known universe.", category: "Exploration", difficulty: "Master", link: "../pages/galaxia_aurora.html", real: true },
+      { name: "StellarPulse", desc: "RF Signal Analyzer.", category: "Intelligence", difficulty: "Knight", link: "../pages/stellarpulse.html", real: true },
 
-      // PROYECTOS INVENTADOS
-      { name: "Protocolo C-3PO", desc: "Traductor universal de 6 millones de formas.", category: "Inteligencia", difficulty: "Maestro" },
-      { name: "Escudo Deflector V2", desc: "Mejora de escudos planetarios.", category: "Defensa", difficulty: "Caballero" },
-      { name: "HoloNet Secure", desc: "Red de comunicación encriptada.", category: "Infraestructura", difficulty: "Padawan" },
-      { name: "Sable Kyber", desc: "Calibrador de cristales de sable de luz.", category: "Defensa", difficulty: "Maestro" },
-      { name: "Ruta Kessel", desc: "Optimizador de rutas de contrabando.", category: "Exploración", difficulty: "Caballero" },
-      { name: "Droide Médico 2-1B", desc: "Software de cirugía autónoma.", category: "Inteligencia", difficulty: "Maestro" },
-      { name: "Arquitectura Estrella", desc: "Planos de estaciones espaciales.", category: "Infraestructura", difficulty: "Caballero" },
-      { name: "Motor Hiperespacio", desc: "Simulación de saltos luz.", category: "Exploración", difficulty: "Maestro" },
-      { name: "Radar Wookiee", desc: "Detector de formas de vida en bosques.", category: "Exploración", difficulty: "Padawan" },
-      { name: "Código Jedi", desc: "Base de datos de filosofía antigua.", category: "Inteligencia", difficulty: "Padawan" },
-      { name: "Caza TIE Silencer", desc: "Prototipo de motor iónico sigiloso.", category: "Defensa", difficulty: "Maestro" },
-      { name: "Granja de Humedad", desc: "Gestión eficiente de agua en desiertos.", category: "Infraestructura", difficulty: "Padawan" },
-      { name: "Podracer Sim", desc: "Simulador de carreras de vainas.", category: "Exploración", difficulty: "Caballero" },
-      { name: "Clonadora Kamino", desc: "Secuenciador de ADN rápido.", category: "Inteligencia", difficulty: "Maestro" },
-      { name: "Ewok Village", desc: "Ingeniería de casas en árboles.", category: "Infraestructura", difficulty: "Padawan" },
-      { name: "Cantina Jukebox", desc: "Reproductor de música Bith.", category: "Infraestructura", difficulty: "Padawan" },
-      { name: "Rastreador Bounty", desc: "Sistema de localización de objetivos.", category: "Defensa", difficulty: "Caballero" },
-      { name: "Holocron Keeper", desc: "Sistema de archivo de seguridad.", category: "Inteligencia", difficulty: "Maestro" },
-      { name: "X-Wing Navigation", desc: "Asistente de vuelo para combate.", category: "Defensa", difficulty: "Caballero" },
-      { name: "Reactor de Fusión", desc: "Control de núcleos de energía.", category: "Infraestructura", difficulty: "Maestro" },
-      { name: "Traductor Sith", desc: "Decodificador de lenguas antiguas.", category: "Inteligencia", difficulty: "Maestro" },
-      { name: "Speeder Bike OS", desc: "Sistema operativo para motos jet.", category: "Exploración", difficulty: "Padawan" },
-      { name: "Base Hoth", desc: "Sistemas de calefacción térmica.", category: "Infraestructura", difficulty: "Caballero" },
-      { name: "Scanner Midicloriano", desc: "Analizador de potencial de fuerza.", category: "Inteligencia", difficulty: "Maestro" },
-      { name: "Detonador Térmico", desc: "Simulación de radio de explosión.", category: "Defensa", difficulty: "Padawan" },
-      { name: "Nano-Droides", desc: "Reparación de cascos en vacío.", category: "Infraestructura", difficulty: "Maestro" },
-      { name: "Mapa Borde Exterior", desc: "Cartografía de zonas desconocidas.", category: "Exploración", difficulty: "Caballero" },
-      { name: "Escudo Gungan", desc: "Tecnología de burbujas hidrostáticas.", category: "Defensa", difficulty: "Caballero" }
+      // INVENTED PROJECTS
+      { name: "C-3PO Protocol", desc: "Universal translator for 6 million forms.", category: "Intelligence", difficulty: "Master" },
+      { name: "Deflector Shield V2", desc: "Planetary shield upgrades.", category: "Defense", difficulty: "Knight" },
+      { name: "HoloNet Secure", desc: "Encrypted communication network.", category: "Infrastructure", difficulty: "Padawan" },
+      { name: "Kyber Saber", desc: "Lightsaber crystal calibrator.", category: "Defense", difficulty: "Master" },
+      { name: "Kessel Route", desc: "Smuggling route optimizer.", category: "Exploration", difficulty: "Knight" },
+      { name: "2-1B Medical Droid", desc: "Autonomous surgery software.", category: "Intelligence", difficulty: "Master" },
+      { name: "Star Architecture", desc: "Space station blueprints.", category: "Infrastructure", difficulty: "Knight" },
+      { name: "Hyperdrive Engine", desc: "Light-speed jump simulation.", category: "Exploration", difficulty: "Master" },
+      { name: "Wookiee Radar", desc: "Lifeform detector for forests.", category: "Exploration", difficulty: "Padawan" },
+      { name: "Jedi Code", desc: "Ancient philosophy database.", category: "Intelligence", difficulty: "Padawan" },
+      { name: "TIE Silencer", desc: "Stealth ion engine prototype.", category: "Defense", difficulty: "Master" },
+      { name: "Moisture Farm", desc: "Efficient water management in deserts.", category: "Infrastructure", difficulty: "Padawan" },
+      { name: "Podracer Sim", desc: "Pod racing simulator.", category: "Exploration", difficulty: "Knight" },
+      { name: "Kamino Cloning", desc: "Rapid DNA sequencer.", category: "Intelligence", difficulty: "Master" },
+      { name: "Ewok Village", desc: "Treehouse engineering.", category: "Infrastructure", difficulty: "Padawan" },
+      { name: "Cantina Jukebox", desc: "Bith music player.", category: "Infrastructure", difficulty: "Padawan" },
+      { name: "Bounty Tracker", desc: "Target localization system.", category: "Defense", difficulty: "Knight" },
+      { name: "Holocron Keeper", desc: "Security archive system.", category: "Intelligence", difficulty: "Master" },
+      { name: "X-Wing Navigation", desc: "Flight assistant for combat.", category: "Defense", difficulty: "Knight" },
+      { name: "Fusion Reactor", desc: "Energy core control.", category: "Infrastructure", difficulty: "Master" },
+      { name: "Sith Translator", desc: "Ancient tongue decoder.", category: "Intelligence", difficulty: "Master" },
+      { name: "Speeder Bike OS", desc: "Jet bike operating system.", category: "Exploration", difficulty: "Padawan" },
+      { name: "Hoth Base", desc: "Thermal heating systems.", category: "Infrastructure", difficulty: "Knight" },
+      { name: "Midichlorian Scanner", desc: "Force potential analyzer.", category: "Intelligence", difficulty: "Master" },
+      { name: "Thermal Detonator", desc: "Blast radius simulation.", category: "Defense", difficulty: "Padawan" },
+      { name: "Nano-Droids", desc: "Vacuum hull repair.", category: "Infrastructure", difficulty: "Master" },
+      { name: "Outer Rim Map", desc: "Cartography of unknown zones.", category: "Exploration", difficulty: "Knight" },
+      { name: "Gungan Shield", desc: "Hydrostatic bubble technology.", category: "Defense", difficulty: "Knight" }
     ];
 
     const grid = document.getElementById('projectsGrid');
@@ -115,9 +116,9 @@
     const categoryFilter = document.getElementById('categoryFilter');
     const difficultyFilter = document.getElementById('difficultyFilter');
 
-    // FUNCIÓN PARA PINTAR LOS PROYECTOS
+    // RENDER FUNCTION
     function renderProjects(filterText = "", filterCat = "all", filterDiff = "all") {
-      grid.innerHTML = ""; // Limpiar grid
+      grid.innerHTML = ""; // Clear grid
 
       const filtered = projects.filter(p => {
         const matchesText = p.name.toLowerCase().includes(filterText.toLowerCase());
@@ -127,7 +128,7 @@
       });
 
       if(filtered.length === 0) {
-        grid.innerHTML = "<p style='grid-column: 1/-1; margin-top:20px;'>No se encontraron archivos con esos criterios.</p>";
+        grid.innerHTML = "<p style='grid-column: 1/-1; margin-top:20px;'>No archives found with those criteria.</p>";
         return;
       }
 
@@ -135,17 +136,17 @@
         const card = document.createElement('div');
         card.className = `project-card ${p.real ? 'real-project' : ''}`;
 
-        // Icono según categoría
+        // Icon based on English Category
         let icon = "fa-folder";
-        if(p.category === "Exploración") icon = "fa-rocket";
-        if(p.category === "Defensa") icon = "fa-shield-alt";
-        if(p.category === "Inteligencia") icon = "fa-brain";
-        if(p.category === "Infraestructura") icon = "fa-tools";
+        if(p.category === "Exploration") icon = "fa-rocket";
+        if(p.category === "Defense") icon = "fa-shield-alt";
+        if(p.category === "Intelligence") icon = "fa-brain";
+        if(p.category === "Infrastructure") icon = "fa-tools";
 
-        // Botón (Enlace o Candado)
+        // Button (Link or Lock)
         const buttonHtml = p.real
-          ? `<a href="${p.link}" class="card-btn btn-access">Acceder</a>`
-          : `<span class="card-btn btn-locked"><i class="fas fa-lock"></i> Clasificado</span>`;
+          ? `<a href="${p.link}" class="card-btn btn-access">Access</a>`
+          : `<span class="card-btn btn-locked"><i class="fas fa-lock"></i> Classified</span>`;
 
         card.innerHTML = `
           <div class="card-header">
@@ -163,7 +164,7 @@
       });
     }
 
-    // EVENTOS PARA QUE FUNCIONE EL BUSCADOR Y FILTROS
+    // EVENT LISTENERS
     searchInput.addEventListener('input', () => update());
     categoryFilter.addEventListener('change', () => update());
     difficultyFilter.addEventListener('change', () => update());
@@ -172,7 +173,7 @@
       renderProjects(searchInput.value, categoryFilter.value, difficultyFilter.value);
     }
 
-    // Inicializar
+    // Initialize
     renderProjects();
   </script>
 </body>

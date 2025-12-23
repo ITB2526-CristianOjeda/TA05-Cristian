@@ -173,9 +173,20 @@ select {
     font-weight: bold;
 }
 
+/* AÑADIDO: Ahora soporta tanto español como inglés */
 .badge.Padawan { background: rgba(76, 175, 80, 0.2); color: #81c784; }
-.badge.Caballero { background: rgba(255, 193, 7, 0.2); color: #ffd54f; }
-.badge.Maestro { background: rgba(244, 67, 54, 0.2); color: #e57373; }
+
+.badge.Caballero,
+.badge.Knight { /* Añadido .badge.Knight */
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffd54f;
+}
+
+.badge.Maestro,
+.badge.Master { /* Añadido .badge.Master */
+    background: rgba(244, 67, 54, 0.2);
+    color: #e57373;
+}
 
 /* Responsive */
 @media (max-width: 768px) {
