@@ -102,3 +102,121 @@
     }, false);
   });
 })();
+
+/* =========================================
+   ANIMACIÓN HIPERESPACIO (Añadido al final)
+   ========================================= */
+
+(function() {
+    // Buscamos el canvas
+    const canvas = document.getElementById('hyperspace-canvas');
+
+    // IMPORTANTE: Si no estamos en la página del canvas (index), detenemos la ejecución
+    // para evitar errores en otras páginas.
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+
+    let width, height;
+    let stars = [];
+    const numStars = 800; // Cantidad de estrellas
+    const speed = 0.5;    // Velocidad de viaje
+    let mouseX = 0;
+    let mouseY = 0;
+
+    // Clase para crear cada estrella
+    class Star {
+        constructor() {
+            this.reset();
+        }
+
+        reset() {
+            this.x = (Math.random() - 0.5) * width * 2;
+            this.y = (Math.random() - 0.5) * height * 2;
+            this.z = Math.random() * width; // Profundidad
+            this.pz = this.z; // Guardamos posición anterior para la estela
+        }
+
+        update() {
+            // Mover la estrella hacia la pantalla (reducir Z)
+            this.z = this.z - 10 * speed;
+
+            // Si la estrella pasa la pantalla, la enviamos al fondo de nuevo
+            if (this.z < 1) {
+                this.reset();
+                this.z = width;
+                this.pz = this.z;
+            }
+        }
+
+        draw() {
+            // Calcular posición 2D basada en perspectiva 3D
+            // El mouseX/Y afecta el punto de fuga (efecto de pilotaje)
+            let offsetX = (mouseX - width / 2) * (width - this.z) / width * 0.5;
+            let offsetY = (mouseY - height / 2) * (width - this.z) / width * 0.5;
+
+            let sx = (this.x / this.z) * width + width / 2 + offsetX;
+            let sy = (this.y / this.z) * height + height / 2 + offsetY;
+
+            // Calcular tamaño basado en cercanía
+            let r = (1 - this.z / width) * 4;
+
+            // Calcular posición anterior para dibujar la estela (efecto velocidad)
+            let px = (this.x / this.pz) * width + width / 2 + offsetX;
+            let py = (this.y / this.pz) * height + height / 2 + offsetY;
+
+            this.pz = this.z; // Actualizar Z anterior
+
+            // Dibujar la línea de velocidad (estela)
+            ctx.beginPath();
+            ctx.moveTo(px, py);
+            ctx.lineTo(sx, sy);
+
+            // Color brillante cian/blanco tipo Jedi
+            let alpha = (1 - this.z / width);
+            ctx.strokeStyle = `rgba(100, 200, 255, ${alpha})`;
+            ctx.lineWidth = r;
+            ctx.stroke();
+        }
+    }
+
+    // Inicializar el sistema
+    function init() {
+        resize();
+        for (let i = 0; i < numStars; i++) {
+            stars.push(new Star());
+        }
+        loop();
+    }
+
+    // Bucle de animación infinito
+    function loop() {
+        // Limpiar el canvas en cada frame
+        ctx.clearRect(0, 0, width, height);
+
+        stars.forEach(star => {
+            star.update();
+            star.draw();
+        });
+
+        requestAnimationFrame(loop);
+    }
+
+    // Ajustar al tamaño de pantalla si se cambia la ventana
+    function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+    }
+
+    // Escuchar eventos
+    window.addEventListener('resize', resize);
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    // Arrancar motores
+    init();
+})();
